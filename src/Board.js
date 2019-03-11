@@ -4,8 +4,20 @@ import Note from "./Note";
 class Board extends Component {
 
     constructor(props) {
-        super(props)
-        this.onDelete = this.onDelete.bind(this)
+        super(props);
+        this.onDelete = this.onDelete.bind(this);
+        this.state = {
+            notes: [
+                {
+                    id: 1,
+                    title: "My Note 1"
+                },
+                {
+                    id: 2,
+                    title: "My Note 2"
+                }
+            ]
+        }
     }
 
     onDelete(position) {
@@ -15,13 +27,15 @@ class Board extends Component {
     render() {
         return(
             <div className="board">
-                <Note title="Note 1" onXXX={this.onDelete} />
-                <Note title="Note 2" onXXX={this.onDelete} />
-                <Note title="Note 3" onXXX={this.onDelete} />
+                {this.state.notes.map( note => this.getNote(note))}
             </div>
         )
     }
 
+    getNote(note) {
+        return <Note note={note}
+                     onXXX={this.onDelete}/>;
+    }
 }
 
 export default Board

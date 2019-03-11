@@ -22,7 +22,7 @@ class Note extends Component {
     }
     remove() {
         console.log('Call remove')
-        this.props.onXXX(1)
+        this.props.onXXX(this.props.note.id)
     }
 
     save(e) {
@@ -46,7 +46,7 @@ class Note extends Component {
 
     renderNote() {
         return <div className="note">
-            {this.props.title}
+            {this.props.note.title}
             <span>
                 <button id="edit" onClick={this.edit}><FaBeer />
                 </button>
