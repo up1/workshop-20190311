@@ -11,6 +11,43 @@ class Board extends Component {
         this.onDelete = this.onDelete.bind(this);
         this.onEdit = this.onEdit.bind(this);
         this.createNewNote = this.createNewNote.bind(this);
+        console.log("constructor")
+    }
+
+    componentWillMount() {
+        console.log("componentWillMount")
+    }
+
+    componentDidMount() {
+        console.log("componentDidMount")
+        const self = this;
+        fetch('https://baconipsum.com/api/?type=all-meat&sentences=3')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(myJson) {
+                myJson[0].split(". ").map(
+                    v => self.createNewNote(v.substring(0, 40)))
+            });
+    }
+
+    createNewNote(newTitle) {
+        this.setState(prevState => (
+            {
+                notes: [
+                    ...prevState.notes,
+                    {
+                        id: this.generateId(),
+                        title: newTitle
+                    }
+                ]
+            }
+        ))
+    }
+
+    generateId() {
+        this.uniqueId = this.uniqueId || 0
+        return this.uniqueId++
     }
 
     onEdit(position, newTitle) {
@@ -29,29 +66,12 @@ class Board extends Component {
         })
     }
 
-    generateId() {
-        this.uniqueId = this.uniqueId || 0
-        return this.uniqueId++
-    }
-
-    createNewNote() {
-        this.setState(prevState => (
-            {
-                notes: [
-                    ...prevState.notes,
-                    {
-                        id: this.generateId(),
-                        title: "New Note"
-                    }
-                ]
-            }
-        ))
-    }
 
     render() {
+        console.log("render");
         return(
             <div className="board">
-                <button id="add" onClick={this.createNewNote}>
+                <button id="add" onClick={this.createNewNote.bind(null, 'New Note')}>
                     Create New Note
                 </button>
                 {this.state.notes.map( note => this.getNote(note))}
