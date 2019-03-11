@@ -19,7 +19,7 @@ class Board extends Component {
     }
 
     componentDidMount() {
-        console.log("componentDidMount")
+        console.log("componentDidMount");
         const self = this;
         fetch('https://baconipsum.com/api/?type=all-meat&sentences=3')
             .then(function(response) {
