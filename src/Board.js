@@ -5,7 +5,6 @@ class Board extends Component {
 
     constructor(props) {
         super(props);
-        this.onDelete = this.onDelete.bind(this);
         this.state = {
             notes: [
                 {
@@ -22,10 +21,21 @@ class Board extends Component {
                 }
             ]
         }
+        this.onDelete = this.onDelete.bind(this);
+        this.onEdit = this.onEdit.bind(this);
+    }
+
+    onEdit(position, newTitle) {
+        // alert(`InEdit ${position} ${newTitle}`)
+        this.setState({
+            notes: this.state.notes.filter(
+                selectedNote => selectedNote.id === position ?
+                        selectedNote.title = newTitle : selectedNote)
+        })
     }
 
     onDelete(position) {
-        alert("Called onDelete: "+ position)
+        // alert("Called onDelete: "+ position)
         this.setState({
             notes: this.state.notes.filter(n => n.id !== position)
         })
@@ -40,7 +50,9 @@ class Board extends Component {
     }
 
     getNote(note) {
-        return <Note note={note}
+        return <Note key={note.id}
+                     note={note}
+                     onEdit={this.onEdit}
                      onXXX={this.onDelete}/>;
     }
 }

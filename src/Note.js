@@ -28,6 +28,7 @@ class Note extends Component {
     save(e) {
         e.preventDefault();
         console.log("Save : ", this._newNoteName.value)
+        this.props.onEdit(this.props.note.id, this._newNoteName.value)
         this.setState({
             isEdit: false
         })
