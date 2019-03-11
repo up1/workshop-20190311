@@ -6,23 +6,11 @@ class Board extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            notes: [
-                {
-                    id: 1,
-                    title: "My Note 1"
-                },
-                {
-                    id: 2,
-                    title: "My Note 2"
-                },
-                {
-                    id: 3,
-                    title: "My Note 3"
-                }
-            ]
+            notes: []
         }
         this.onDelete = this.onDelete.bind(this);
         this.onEdit = this.onEdit.bind(this);
+        this.createNewNote = this.createNewNote.bind(this);
     }
 
     onEdit(position, newTitle) {
@@ -41,9 +29,31 @@ class Board extends Component {
         })
     }
 
+    generateId() {
+        this.uniqueId = this.uniqueId || 0
+        return this.uniqueId++
+    }
+
+    createNewNote() {
+        this.setState(prevState => (
+            {
+                notes: [
+                    ...prevState.notes,
+                    {
+                        id: this.generateId(),
+                        title: "New Note"
+                    }
+                ]
+            }
+        ))
+    }
+
     render() {
         return(
             <div className="board">
+                <button id="add" onClick={this.createNewNote}>
+                    Create New Note
+                </button>
                 {this.state.notes.map( note => this.getNote(note))}
             </div>
         )
