@@ -15,6 +15,10 @@ class Board extends Component {
                 {
                     id: 2,
                     title: "My Note 2"
+                },
+                {
+                    id: 3,
+                    title: "My Note 3"
                 }
             ]
         }
@@ -22,6 +26,9 @@ class Board extends Component {
 
     onDelete(position) {
         alert("Called onDelete: "+ position)
+        this.setState({
+            notes: this.state.notes.filter(n => n.id !== position)
+        })
     }
 
     render() {
