@@ -22,7 +22,10 @@ class Note extends Component {
     remove() {
         console.log('Call remove')
     }
-    save() {
+
+    save(e) {
+        e.preventDefault();
+        console.log("Save : ", this._newNoteName.value)
         this.setState({
             isEdit: false
         })
@@ -31,8 +34,10 @@ class Note extends Component {
     renderEditNote() {
         return(
             <div className="note">
-                <textarea/>
-                <button onClick={this.save}>save</button>
+                <form onSubmit={this.save}>
+                    <textarea ref={v => this._newNoteName = v} />
+                    <button id="save">save</button>
+                </form>
             </div>
         )
     }
