@@ -11,6 +11,7 @@ class Note extends Component {
         }
         this.edit = this.edit.bind(this);
         this.save = this.save.bind(this);
+        this.remove = this.remove.bind(this);
     }
 
     edit() {
@@ -21,6 +22,7 @@ class Note extends Component {
     }
     remove() {
         console.log('Call remove')
+        this.props.onXXX(1)
     }
 
     save(e) {
@@ -44,7 +46,7 @@ class Note extends Component {
 
     renderNote() {
         return <div className="note">
-            Hello Note
+            {this.props.title}
             <span>
                 <button id="edit" onClick={this.edit}><FaBeer />
                 </button>
